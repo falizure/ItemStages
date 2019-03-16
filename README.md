@@ -59,4 +59,13 @@ mods.ItemStages.stageEnchant("one", <enchantment:minecraft:protection>);
 
 // Stages an enchantment by level (removes the enchanted book from JEI and stops the enchantment being used)
 mods.ItemStages.stageEnchantByLevel("one", <enchantment:minecraft:projectile_protection>.makeEnchantment(1));
+
+// Stages all items from a mod 1 at a time excluding the items you specify. (In this example it stages all items in enderio to the stage "one" except the simple sag mill, only 1 exception is given but you can apply multiple exceptions separated with a , each of which always needs the .definition.name at the end like the one provided)
+import crafttweaker.item.IItemStack;
+val DontStage = [<enderio:block_simple_sag_mill>.definition.name] as string[];
+for item in loadedMods["enderio"].items {
+    if (!(DontStage has item.definition.name)) {
+        mods.ItemStages.addItemStage("one", item);
+    }
+}
 ```
